@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendation Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container result-container">
+        <h1>Recommended Crop</h1>
+        
+        <div class="result-card">
+            <h2>{{ crop }}</h2>
+            <p>Confidence: {{ confidence }}%</p>
+        </div>
+        
+        <div class="other-options">
+            <h3>Other Suitable Crops:</h3>
+            <ul>
+                {% for crop, conf in top3 %}
+                    {% if loop.index0 > 0 %}
+                    <li>{{ crop }} ({{ conf }}%)</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <div class="input-summary">
+            <h3>Your Input Values:</h3>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Value</th>
+                </tr>
+                {% for name, value in features.items() %}
+                <tr>
+                    <td>{{ name }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        
+        <a href="/" class="back-button">Try Again</a>
+    </div>
+</body>
+</html>
